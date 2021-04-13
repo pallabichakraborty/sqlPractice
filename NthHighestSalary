@@ -16,3 +16,41 @@ For example, given the above Employee table, the nth highest salary where n = 2 
 | 200                    |
 +------------------------+
 */
+
+
+DELIMITER $$
+
+drop function if exists getNthHighestSalary $$
+
+create  function getNthHighestSalary(N INT) RETURNS INT
+deterministic
+begin
+#Show only 1 result
+# If there is a duplicate it should be treated as same rank
+
+
+declare nHighestSalary int  default 0;
+
+	select IFNULL(b.Salary,a.placeholder) into nHighestSalary 
+	from
+	(select null as "placeholder") a
+	left outer join
+	(select Salary
+	from
+	(select id, Salary, DENSE_RANK() over (order by Salary desc)  rownum
+	from Employee) a
+	where a.rownum=N
+    limit 1) b
+	on (1=1);
+
+
+return nHighestSalary;
+
+end$$
+
+
+
+DELIMITER ;
+
+
+select getNthHighestSalary(2);
