@@ -37,3 +37,33 @@ Explanation:
 
 In IT department, Max earns the highest salary, both Randy and Joe earn the second highest salary, and Will earns the third highest salary. There are only two employees in the Sales department, Henry earns the highest salary while Sam earns the second highest salary.
 */
+
+
+/*
+Testdata
+drop table if exists employee;
+drop table if exists Department;
+create table Department
+(
+Id int primary key,
+Name varchar(50)
+);
+
+create table Employee
+(
+Id int primary key,
+Name varchar(50),
+Salary int,
+DepartmentId int,
+foreign key(DepartmentId) references Department(Id)
+);
+insert into Department values(1,'IT'),(2,'Sales');
+insert into employee 
+values(1,'Joe',85000,1),
+	      (2,'Henry',80000,2),
+          (3,'Sam',60000,2),
+          (4,'Max',90000,1),
+          (5,'Janet',69000,1),
+          (6,'Randy',85000,1),
+          (7,'Will',70000,1);
+*/
