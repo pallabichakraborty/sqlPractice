@@ -122,4 +122,14 @@ foreign key(Client_Id) references users(users_id),
 foreign key(Driver_Id) references users(users_id)
 );
 
+insert into users(users_id, Banned,`Role`)
+values(1,'No','client'),
+           (2,'Yes','client'),
+           ( 3,'No','client'),
+           ( 4,'No','client'),
+           (10,'No','driver'),
+           ( 11 ,'No','driver'),
+           (12 ,'No' ,'driver'),
+           (13,'No' ,'driver');
+
 */
