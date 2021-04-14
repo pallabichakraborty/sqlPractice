@@ -96,3 +96,30 @@ On 2013-10-03:
   - Hence there are 2 unbanned request in total, 1 of which were canceled.
   - The Cancellation Rate is (1 / 2) = 0.50
   */
+
+
+/*
+Test Data
+drop table if exists Trips;
+drop table if exists Users;
+
+create table Users
+(
+users_id int primary key,
+Banned enum('Yes','No'),
+`Role` enum('client','driver','partner')
+);
+
+create table Trips
+(
+Id int primary key,
+Client_Id int,
+Driver_Id int,
+City_Id int,
+`Status` enum('completed', 'cancelled_by_driver', 'cancelled_by_client'),
+Request_at date,
+foreign key(Client_Id) references users(users_id),
+foreign key(Driver_Id) references users(users_id)
+);
+
+*/
