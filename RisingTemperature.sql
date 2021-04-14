@@ -59,3 +59,11 @@ values(1,str_to_date('2015-01-01','%Y-%m-%d'),10),
 (4,str_to_date('2015-01-04','%Y-%m-%d'),30);
 
 */
+
+# Write your MySQL query statement below
+select Weather.id id
+from
+(select id, recordDate, lag(recordDate) over (order by recordDate) prevrecordDate,temperature,lag(temperature) over (order by recordDate) prevTemperature
+from Weather) Weather
+where datediff(recordDate,prevrecordDate)=1
+and temperature>prevTemperature
