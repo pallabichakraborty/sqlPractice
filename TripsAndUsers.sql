@@ -131,5 +131,17 @@ values(1,'No','client'),
            ( 11 ,'No','driver'),
            (12 ,'No' ,'driver'),
            (13,'No' ,'driver');
+           
+insert into Trips
+values(1,1,10 ,1 ,'completed',str_to_date('2013-10-01','%Y-%m-%d')),
+(2 ,2 ,11 ,1  ,'cancelled_by_driver',str_to_date('2013-10-01','%Y-%m-%d')),
+( 3 ,3  ,2  ,6  ,'completed',str_to_date('2013-10-01','%Y-%m-%d')),
+(4 ,4  ,13  ,6 ,'cancelled_by_client',str_to_date('2013-10-01','%Y-%m-%d')),
+(5  ,1  ,10 , 1 ,'completed',str_to_date('2013-10-02','%Y-%m-%d')),
+(6 ,2  ,11 ,6 ,'completed ',str_to_date('2013-10-02','%Y-%m-%d')),
+(7 ,3 ,12   ,6 ,'completed ',str_to_date('2013-10-02','%Y-%m-%d')),
+(8 ,2  ,12  ,12,'completed ',str_to_date('2013-10-03','%Y-%m-%d')),
+(9 ,3 ,10 ,12 ,'completed',str_to_date('2013-10-03','%Y-%m-%d')),
+(10,4  , 13 ,12,'cancelled_by_driver',str_to_date('2013-10-03','%Y-%m-%d'));
 
 */
