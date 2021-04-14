@@ -64,3 +64,12 @@ values(1,'Joe',70000,1),
            (4,'Sam',60000,2),
            (5,'Max',90000,1);
 */
+
+	select DepartmentName `Department`,EmployeeName `Employee`,Salary
+    from
+    (select Department.Name `DepartmentName`,Employee.Name `EmployeeName`,Salary, dense_rank() over (partition by Department.id order by Salary desc) SalaryRanking
+    from Department Department
+    inner join
+    Employee Employee
+    on (department.id=employee.departmentid)) EmployeeData
+    where SalaryRanking=1
