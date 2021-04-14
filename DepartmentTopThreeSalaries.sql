@@ -67,3 +67,13 @@ values(1,'Joe',85000,1),
           (6,'Randy',85000,1),
           (7,'Will',70000,1);
 */
+
+# Write your MySQL query statement below
+select DepartmentName `Department`,EmployeeName `Employee`,Salary
+    from
+    (select Department.Name `DepartmentName`,Employee.Name `EmployeeName`,Salary, dense_rank() over (partition by Department.id order by Salary desc) SalaryRanking
+    from Department Department
+    inner join
+    Employee Employee
+    on (department.id=employee.departmentid)) EmployeeData
+    where SalaryRanking<=3
