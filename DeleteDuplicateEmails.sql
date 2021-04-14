@@ -22,3 +22,17 @@ Note:
 
 Your output is the whole Person table after executing your sql. Use delete statement.
 */
+
+/*
+Test Data
+drop table if exists Person;
+
+create table Person
+(
+Id int primary key,
+Email varchar(50)
+);
+
+
+insert into Person values (1,'john@example.com'),(2,'bob@example.com'),(3,'john@example.com');
+*/
