@@ -36,3 +36,12 @@ Email varchar(50)
 
 insert into Person values (1,'john@example.com'),(2,'bob@example.com'),(3,'john@example.com');
 */
+
+# Write your MySQL query statement below
+delete from Person
+where Id in 
+(select Id
+from
+(select Id, Email, dense_rank() over (partition by Email order by Id) emailcount
+from Person) a
+where emailcount>1)
