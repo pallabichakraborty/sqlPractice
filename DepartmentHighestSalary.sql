@@ -32,3 +32,35 @@ Explanation:
 
 Max and Jim both have the highest salary in the IT department and Henry has the highest salary in the Sales department.
 */
+
+
+/*
+Test Data
+drop table if exists Department;
+
+create table Department
+(
+Id int primary key,
+Name varchar(50)
+);
+
+drop table if exists employee;
+
+create table Employee
+(
+Id int primary key,
+Name varchar(50),
+Salary int,
+DepartmentId int,
+foreign key(DepartmentId) references Department(Id)
+);
+
+
+insert into Department values(1,'IT'),(2,'Sales');
+insert into employee 
+values(1,'Joe',70000,1),
+		   (2,'Jim',90000,1),
+           (3,'Henry',80000,2),
+           (4,'Sam',60000,2),
+           (5,'Max',90000,1);
+*/
