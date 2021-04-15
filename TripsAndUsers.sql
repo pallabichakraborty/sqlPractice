@@ -135,7 +135,7 @@ values(1,'No','client'),
 insert into Trips
 values(1,1,10 ,1 ,'completed',str_to_date('2013-10-01','%Y-%m-%d')),
 (2 ,2 ,11 ,1  ,'cancelled_by_driver',str_to_date('2013-10-01','%Y-%m-%d')),
-( 3 ,3  ,2  ,6  ,'completed',str_to_date('2013-10-01','%Y-%m-%d')),
+( 3 ,3  ,12  ,6  ,'completed',str_to_date('2013-10-01','%Y-%m-%d')),
 (4 ,4  ,13  ,6 ,'cancelled_by_client',str_to_date('2013-10-01','%Y-%m-%d')),
 (5  ,1  ,10 , 1 ,'completed',str_to_date('2013-10-02','%Y-%m-%d')),
 (6 ,2  ,11 ,6 ,'completed ',str_to_date('2013-10-02','%Y-%m-%d')),
@@ -145,3 +145,29 @@ values(1,1,10 ,1 ,'completed',str_to_date('2013-10-01','%Y-%m-%d')),
 (10,4  , 13 ,12,'cancelled_by_driver',str_to_date('2013-10-03','%Y-%m-%d'));
 
 */
+
+
+# Write your MySQL query statement below
+select allTrips.Request_at `Day`,round(ifnull(cancelledTrips.cancelledCount/allTrips.allTripsCount,0.00),2) `Cancellation Rate`
+from
+(
+select Trips.Request_at,count(*) allTripsCount
+from (select  Id, Client_Id, Driver_Id, `Status` tripstatus,request_at from  Trips where request_at between str_to_date('2013-10-01','%Y-%m-%d') and str_to_date('2013-10-03','%Y-%m-%d')) Trips,
+(select Users_id  User_id from users where Role='client' and Banned='No') unbannedclient,
+(select Users_id  User_id from users where Role='driver' and Banned='No') unbanneddriver
+where trips.client_id=unbannedclient.User_id
+and trips.driver_id=unbanneddriver.User_id
+group by Trips.request_at
+) allTrips
+left outer join
+(select Trips.Request_at,count(*) cancelledCount
+from (select  Id, Client_Id, Driver_Id, `Status` tripstatus,request_at from  Trips) Trips,
+(select Users_id  User_id from users where Role='client' and Banned='No') unbannedclient,
+(select Users_id  User_id from users where Role='driver' and Banned='No') unbanneddriver
+where trips.client_id=unbannedclient.User_id
+and trips.driver_id=unbanneddriver.User_id
+and (tripstatus='cancelled_by_driver'
+or tripstatus='cancelled_by_client')
+group by Trips.request_at
+) cancelledTrips
+on (allTrips.Request_at=cancelledTrips.Request_at)
