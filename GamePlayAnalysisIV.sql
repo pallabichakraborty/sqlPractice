@@ -41,6 +41,7 @@ Only the player with id 1 logged back in after the first day he had logged in so
 
 
 /* Test Data
+
 drop table if exists Activity;
 create table Activity
 (
@@ -57,8 +58,24 @@ INSERT INTO `Activity`
 `games_played`)
 VALUES
 (1,2,str_to_date('2016-03-01','%Y-%m-%d'),5),
-(1,2,str_to_date('2016-05-02','%Y-%m-%d'),6),
+(1,2,str_to_date('2016-03-02','%Y-%m-%d'),6),
 (2,3,str_to_date('2017-06-25','%Y-%m-%d'),1),
 (3,1,str_to_date('2016-03-02','%Y-%m-%d'),0),
 (3,4,str_to_date('2018-07-03','%Y-%m-%d'),5);
 */
+
+select  round(consecutivedateloginPlayers/numberOfPlayers,2) fraction
+from
+(select count(distinct player_id)  numberOfPlayers
+ from Activity) Activity,
+(
+select count(distinct Activity.player_id) consecutivedateloginPlayers
+from 
+(select player_id, min(event_date) first_login_date
+from Activity
+group  by player_id ) firstlogin
+inner join
+Activity
+on (firstlogin.player_id=Activity.player_id
+AND date_add(first_login_date, interval 1 DAY)=Activity.event_date)
+) consecutivedatelogin
