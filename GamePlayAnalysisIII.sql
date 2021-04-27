@@ -44,3 +44,33 @@ For the player with id 1, 5 + 6 = 11 games played by 2016-05-02, and 5 + 6 + 1 =
 For the player with id 3, 0 + 5 = 5 games played by 2018-07-03.
 Note that for each player we only care about the days when the player logged in.
 */
+
+
+/*
+ Test Data
+drop table if exists Activity;
+create table Activity
+(
+player_id    int,
+device_id    int,
+event_date  date,
+games_played int ,
+primary key(player_id, event_date)
+);
+INSERT INTO `Activity`
+(`player_id`,
+`device_id`,
+`event_date`,
+`games_played`)
+VALUES
+(1,2,str_to_date('2016-03-01','%Y-%m-%d'),5),
+(1,2,str_to_date('2016-05-02','%Y-%m-%d'),6),
+(1,3,str_to_date('2017-06-25','%Y-%m-%d'),1),
+(3,1,str_to_date('2016-03-02','%Y-%m-%d'),0),
+(3,4,str_to_date('2018-07-03','%Y-%m-%d'),5);
+*/
+
+select player_id, 
+		  event_date,
+          sum(games_played) over(partition by player_id order by event_date)
+from Activity
