@@ -1,3 +1,4 @@
+/*
 SQL Schema
 Table: Activity
 
@@ -37,3 +38,19 @@ Result table:
 | 2         | 2017-06-25  |
 | 3         | 2016-03-02  |
 +-----------+-------------+
+
+*/
+
+/* Test Data
+
+drop table if exists Activity;
+create table Activity
+(
+player_id    int,
+device_id    int,
+event_date  date,
+games_played int ,
+primary key(player_id)
+);
+
+*/
