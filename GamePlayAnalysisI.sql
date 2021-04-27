@@ -50,7 +50,19 @@ player_id    int,
 device_id    int,
 event_date  date,
 games_played int ,
-primary key(player_id)
+primary key(player_id, event_date)
 );
+
+INSERT INTO `Activity`
+(`player_id`,
+`device_id`,
+`event_date`,
+`games_played`)
+VALUES
+(1,2,str_to_date('2016-03-01','%Y-%m-%d'),5),
+(1,2,str_to_date('2016-05-02','%Y-%m-%d'),6),
+(2,3,str_to_date('2017-06-25','%Y-%m-%d'),1),
+(3,1,str_to_date('2016-03-02','%Y-%m-%d'),0),
+(3,4,str_to_date('2018-07-03','%Y-%m-%d'),5);
 
 */
