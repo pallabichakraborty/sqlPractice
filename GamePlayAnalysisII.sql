@@ -65,3 +65,17 @@ VALUES
 (3,4,str_to_date('2018-07-03','%Y-%m-%d'),5);
 
 */
+
+# Write your MySQL query statement below
+select Activity.player_id,Activity.device_id
+from
+	(
+		select player_id, min(event_date) first_login
+		from Activity
+		group by player_id
+    ) firstloginDetails
+    inner join
+	Activity
+on (firstloginDetails.player_id=Activity.player_id
+       and 
+	  firstloginDetails.first_login=Activity.event_date)
