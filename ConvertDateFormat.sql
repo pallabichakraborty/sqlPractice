@@ -39,5 +39,6 @@ Please note that the output is case-sensitive.
 */
 
 # Write your MySQL query statement below
+# %e is to remove 0 in the beginning, for month it is %c
 select date_format(day,'%W, %M %e, %Y') day
 from Days
