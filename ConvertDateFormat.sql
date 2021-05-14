@@ -38,6 +38,23 @@ Result table:
 Please note that the output is case-sensitive.
 */
 
+
+/*
+
+Test Data
+
+create table Days
+(
+day date primary key
+);
+
+insert into Days(day)
+values(str_to_date('2022-04-12','%Y-%m-%d')),
+(str_to_date('2021-08-09','%Y-%m-%d')),
+(str_to_date('2020-06-26','%Y-%m-%d'));
+*
+
+
 # Write your MySQL query statement below
 # %e is to remove 0 in the beginning, for month it is %c
 select date_format(day,'%W, %M %e, %Y') day
