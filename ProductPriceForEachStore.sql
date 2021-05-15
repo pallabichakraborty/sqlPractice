@@ -43,3 +43,29 @@ Product 0 price's are 95 for store1, 100 for store2 and, 105 for store3.
 Product 1 price's are 70 for store1, 80 for store3 and, it's not sold in store2.
 
 */
+
+/*
+Test Data
+
+create table Products
+(
+product_id int,
+store enum('store1', 'store2', 'store3'),
+price int
+);
+
+
+insert into Products(product_id,store,price)
+values(0,'store1',95),
+(0,'store3',105),
+(0,'store2',100),
+(1,'store1',70),
+(1,'store3',80);
+*/
+
+select product_id, 
+          max(if (store='store1' , price , null))  store1,
+          max(if (store='store2' , price , null))  store2,
+          max(if (store='store3' , price , null))  store3
+from Products
+group by product_id
