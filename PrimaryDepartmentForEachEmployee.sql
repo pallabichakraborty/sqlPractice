@@ -52,3 +52,18 @@ Result table:
 - The Primary department for employee 3 is 3.
 - The Primary department for employee 4 is 3.
 */
+# Write your MySQL query statement below
+with emp_multiple_dept AS
+(
+ select employee_id
+ from Employee
+ where primary_flag='Y'
+)
+select employee_id, department_id
+from Employee
+where employee_id in (select employee_id from emp_multiple_dept)
+and primary_flag='Y'
+UNION
+select employee_id, department_id
+from Employee
+where employee_id not in (select employee_id from emp_multiple_dept)
