@@ -52,6 +52,28 @@ Result table:
 - The Primary department for employee 3 is 3.
 - The Primary department for employee 4 is 3.
 */
+/*
+Test Data
+drop table employee;
+
+create table employee
+(
+employee_id int,
+department_id int,
+primary_flag enum('Y','N'),
+primary key(employee_id, department_id) 
+);
+
+
+insert into employee(employee_id,department_id,primary_flag)
+values(1,1,'N'),
+(2,1,'Y'),
+(2,2,'N'),
+(3,3,'N'),
+(4,2,'N'),
+(4,3,'Y'),
+(4,4,'Y')
+*/
 # Write your MySQL query statement below
 with emp_multiple_dept AS
 (
