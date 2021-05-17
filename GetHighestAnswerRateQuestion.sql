@@ -30,6 +30,26 @@ question 285 has answer rate 1/1, while question 369 has 0/1 answer rate, so out
 Note: The highest answer rate meaning is: answer number's ratio in show number in the same question.
 */
 
+/*
+Test Data
+drop table survey_log;
+create table survey_log
+(
+id int, 
+action enum ("show","answer","skip"), 
+question_id int, 
+answer_id int, 
+q_num int, 
+timestamp int,
+primary key(id, question_id,action)
+);
+
+insert into survey_log(id, action, question_id, answer_id, q_num, timestamp)
+values(5,'show',285,null,1,123),
+(5,'answer',285,124124,1,124),
+(5,'show',369,null,2,125),
+(5,'skip',369,null,2,125);
+*/
 # Write your MySQL query statement below
 
 select question_id survey_log
