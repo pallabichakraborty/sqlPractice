@@ -66,3 +66,28 @@ Player 2 (Federer) won 5 titles: Wimbledon (2020), US_open (2019, 2020), and Au_
 Player 3 (Novak) did not win anything, we did not include them in the result table.
 
 */
+
+# Write your MySQL query statement below
+with championship_list as
+(
+    select Wimbledon player_id,"Wimbeldon" championship 
+    from Championships
+    union all
+    select Fr_open player_id,"Fr_open" championship 
+    from Championships
+     union all
+    select US_open player_id,"US_open" championship 
+    from Championships
+     union all
+    select Au_open player_id,"Au_open" championship 
+    from Championships 
+)
+select Players.player_id,
+       Players.player_name,
+       sum(1) grand_slams_count
+from Players Players,
+     championship_list championship_list
+where Players.player_id=championship_list.player_id
+group by Players.player_id,
+       Players.player_name
+
